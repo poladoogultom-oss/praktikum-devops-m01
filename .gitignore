@@ -1,0 +1,11 @@
+# Accidental duplicate PDF exports (keep only canonical *_Gandhi.pdf)
+minggu-01/dokumen/M1_*
+minggu-01/dokumen/MM01_*
+minggu-01/dokumen/maM01_*
+minggu-01/dokumen/*Brian Polado*
+minggu-01/dokumen/*.docx
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
