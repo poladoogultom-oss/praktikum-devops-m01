@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 #
-# buat-log.sh - pembangkit log akses web sintetis (reproducible) untuk latihan analitik
-# JS-DVO-02 · JOB 2
-#
-# Pemakaian:
-#   ./buat-log.sh            ; hasilkan app.log (500 baris)
-#   ./buat-log.sh out.log 10 ; hasilkan out.log (10 baris) untuk uji cepat
-#
 set -euo pipefail
 
 OUT="${1:-app.log}"
