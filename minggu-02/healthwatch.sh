@@ -1,17 +1,4 @@
 #!/usr/bin/env bash
-#
-# healthwatch.sh - Pemantau kesehatan endpoint (Challenge "Health Watcher" JS-DVO-02)
-#
-# Memantau endpoint (default /health) tiap interval, menulis log terstruktur
-# ISO-8601 per pemeriksaan, mendeteksi transisi UP<->DOWN, menghitung MTTR,
-# dan saat Ctrl+C mencetak ringkasan sesi.
-#
-# Pemakaian:
-#   ./healthwatch.sh
-#   ./healthwatch.sh --interval 10 --url http://127.0.0.1:5000/health --log hw.log
-#
-# Exit code: 0 = tanpa insiden selama sesi, 2 = terjadi minimal satu insiden.
-#
 set -euo pipefail
 
 INTERVAL=5
@@ -25,9 +12,9 @@ readonly SCRIPT_NAME VERSION
 # Variabel state sesi
 checks=0
 incidents=0
-total_downtime=0          # detik
-current_state=""          # UP / DOWN / "" (belum ada)
-incident_start=0          # epoch detik saat DOWN mulai
+total_downtime=0         
+current_state=""          
+incident_start=0          
 
 usage() {
   cat <<USAGE
@@ -44,7 +31,6 @@ USAGE
 now_epoch() { date +%s; }
 
 log_line() {
-  # $1 = status (UP/DOWN), $2 = waktu respons (ms)
   printf '%s %s %s\n' "$(date '+%Y-%m-%dT%H:%M:%S%z')" "$1" "$2" >> "$LOG_FILE"
 }
 
