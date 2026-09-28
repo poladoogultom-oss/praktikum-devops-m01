@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-# sysreport.sh - Laporan kesehatan sistem ringkas untuk kebutuhan operasional
-# JS-DVO-02 · JOB 4
+
 set -euo pipefail
 
 SCRIPT_NAME="$(basename "$0")"
