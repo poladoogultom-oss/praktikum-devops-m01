@@ -53,15 +53,32 @@ mapfile -t STAGED_SH < <(
 )
 
 if (( ${#STAGED_SH[@]} > 0 )); then
-    if ! command -v shellcheck >/dev/null 2>&1; then
-        red "✗ shellcheck tidak ditemukan di PATH. Pasang: sudo apt install shellcheck"
+    # Cari shellcheck di lokasi umum (apt, Homebrew, Python venv Scripts di Windows)
+    SHELLCHECK_BIN="$(command -v shellcheck 2>/dev/null || true)"
+    if [[ -z "$SHELLCHECK_BIN" ]]; then
+        for cand in \
+            "/c/Users/ASUS/.workbuddy-ai/binaries/python/envs/default/Scripts/shellcheck.exe" \
+            "/c/Users/ASUS/.workbuddy-ai/binaries/python/envs/default/Scripts/shellcheck" \
+            "/usr/bin/shellcheck" \
+            "/usr/local/bin/shellcheck" \
+            "/opt/homebrew/bin/shellcheck" ; do
+            if [[ -x "$cand" ]]; then
+                SHELLCHECK_BIN="$cand"
+                break
+            fi
+        done
+    fi
+
+    if [[ -z "$SHELLCHECK_BIN" ]]; then
+        red "✗ shellcheck tidak ditemukan di PATH atau lokasi umum."
+        red "  Pasang salah satu:  sudo apt install shellcheck   |   pip install shellcheck-py"
         exit 1
     fi
 
     FAIL=0
     for f in "${STAGED_SH[@]}"; do
         # shellcheck disable=SC2317
-        if ! shellcheck_output=$(shellcheck --severity=warning "$f" 2>&1); then
+        if ! shellcheck_output=$("$SHELLCHECK_BIN" --severity=warning "$f" 2>&1); then
             FAIL=1
             red "✗ shellcheck gagal pada: $f"
             printf '%s\n' "$shellcheck_output" | sed 's/^/    /' >&2
