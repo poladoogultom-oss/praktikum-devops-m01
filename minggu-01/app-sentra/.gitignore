@@ -1,19 +1,7 @@
-# Virtual environment
 .venv/
-venv/
-
-# Python
 __pycache__/
 *.pyc
-*.pyo
-
-# Rahasia & environment
 .env
-.env.*
-*.pem
-*.key
-
-# Artefak runtime
 *.log
-.app.pid
 app.log
+ringkasan-log.txt
