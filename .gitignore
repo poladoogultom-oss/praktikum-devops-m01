@@ -12,3 +12,4 @@ minggu-03/lab-git/
 .DS_Store
 Thumbs.db
 *.swp
+.env

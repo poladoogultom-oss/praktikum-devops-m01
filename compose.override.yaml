@@ -1,0 +1,8 @@
+# Penyesuaian otomatis lingkungan pengembangan lokal
+services:
+  app:
+    volumes:
+      - ./src:/app/src
+    environment:
+      BUILD_ID: dev-local
+    restart: "no"
